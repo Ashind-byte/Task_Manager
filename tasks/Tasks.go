@@ -1,4 +1,4 @@
-package Tasks
+package tasks
 
 import (
 	"bufio"
@@ -15,7 +15,7 @@ type Task struct {
 	Completed bool
 }
 
-func AddTask() *Task {
+func AddTask() (*Task, error) {
 	reader := bufio.NewReader(os.Stdin)
 	task := &Task{}
 	fmt.Println("Enter the title of the task")
@@ -23,8 +23,8 @@ func AddTask() *Task {
 	fmt.Println("Is the task complete? true or false")
 	_, err := fmt.Scan(&task.Completed)
 	if err != nil {
-		return nil
+		return nil, err
 	}
-	return task
+	return task, nil
 
 }

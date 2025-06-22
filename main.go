@@ -1,14 +1,14 @@
 package main
 
 import (
-	"TodoApp/Database"
-	"TodoApp/Tasks"
+	"TodoApp/database"
+	"TodoApp/tasks"
 	"fmt"
 )
 
 func main() {
 
-	taskdb := Database.TaskDb{}
+	taskdb := database.NewTaskDb()
 	taskdb.LoadDb()
 	for {
 		var choice int = 0
@@ -17,7 +17,7 @@ func main() {
 		fmt.Scan(&choice)
 		switch choice {
 		case 1:
-			newTask := Tasks.AddTask()
+			newTask := tasks.AddTask()
 			taskdb.AddTask(newTask)
 			break
 		case 2:
