@@ -43,13 +43,20 @@ func (t *TaskDb) AddTask(task *tasks.Task) error {
 }
 
 func (t *TaskDb) UpdateTask(taskId uint) error {
-	t.db.Model(&tasks.Task{}).Where("id = ?", taskId).Updates(tasks.Task{Completed: true})
+	result := t.db.Model(&tasks.Task{}).Where("id = ?", taskId).Updates(tasks.Task{Completed: true})
+	if result.Error != nil {
+		log.Fatal(result.Error)
+	}
 	fmt.Println("Updated task successfully")
 	return nil
 }
 
 func (t *TaskDb) DeleteTask(taskId uint) error {
-	t.db.Model(&tasks.Task{}).Where("id = ?", taskId).Delete(&tasks.Task{})
+	result := t.db.Model(&tasks.Task{}).Where("id = ?", taskId).Delete(&tasks.Task{})
+	if result.Error != nil {
+		log.Fatal(result.Error)
+		return result.Error
+	}
 	fmt.Println("Deleted task successfully")
 	return nil
 }

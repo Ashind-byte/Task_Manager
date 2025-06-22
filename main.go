@@ -4,6 +4,7 @@ import (
 	"TodoApp/database"
 	"TodoApp/tasks"
 	"fmt"
+	"log"
 )
 
 func main() {
@@ -17,25 +18,45 @@ func main() {
 		fmt.Scan(&choice)
 		switch choice {
 		case 1:
-			newTask := tasks.AddTask()
-			taskdb.AddTask(newTask)
+			newTask, err := tasks.AddTask()
+			if err != nil {
+				log.Fatal(err)
+				break
+			}
+			err = taskdb.AddTask(newTask)
+			if err != nil {
+				log.Fatal(err)
+				break
+			}
 			break
 		case 2:
 			var deleteId uint = 0
 			fmt.Println("Enter Id of the task to delete")
 			fmt.Scan(&deleteId)
-			taskdb.DeleteTask(deleteId)
+			err := taskdb.DeleteTask(deleteId)
+			if err != nil {
+				log.Fatal(err)
+				break
+			}
 			break
 		case 3:
 
 			var updateId uint = 0
 			fmt.Println("Enter Id of the task to update")
 			fmt.Scan(&updateId)
-			taskdb.UpdateTask(updateId)
+			err := taskdb.UpdateTask(updateId)
+			if err != nil {
+				log.Fatal(err)
+				break
+			}
 			break
 		case 4:
 			fmt.Println("Lisiting all taks...")
-			taskdb.ListTask()
+			err := taskdb.ListTask()
+			if err != nil {
+				log.Fatal(err)
+				break
+			}
 			break
 		default:
 			fmt.Println("Invalid choice")
