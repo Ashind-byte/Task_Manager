@@ -35,7 +35,7 @@ func (t *TaskDb) AddTask(task *Tasks.Task) {
 }
 
 func (t *TaskDb) UpdateTask(taskId uint) {
-	t.db.Model(&Tasks.Task{}).Where("id = ?", taskId).Updates(Tasks.Task{})
+	t.db.Model(&Tasks.Task{}).Where("id = ?", taskId).Updates(Tasks.Task{Completed: true})
 	fmt.Println("Updated task successfully")
 }
 
